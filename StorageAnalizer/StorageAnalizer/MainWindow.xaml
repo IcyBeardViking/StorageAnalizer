@@ -1,0 +1,25 @@
+﻿<Controls:MetroWindow x:Class="StorageAnalizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:StorageAnalizer"
+        mc:Ignorable="d"
+        Title="Storage Analizer" 
+        Height="460" 
+        Width="800" 
+        ResizeMode="CanMinimize">
+
+    <Grid Background="#FF2D2D30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="236*"/>
+            <ColumnDefinition Width="357*"/>
+            <ColumnDefinition Width="201*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="scan" Content="Scan..." HorizontalAlignment="Left" Margin="10,389,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FF2D2D30" Background="#FF2D2D30" Height="20" Click="scan_Click"/>
+        <TextBox x:Name="folderPath" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="572" IsReadOnly="True" Grid.ColumnSpan="2"/>
+        <Button x:Name="browse" Content="Browse..." HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FF2D2D30" Height="20" Click="browse_Click" Background="#FF2D2D30"/>
+
+    </Grid>
+</Controls:MetroWindow>
