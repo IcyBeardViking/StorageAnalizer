@@ -9,7 +9,21 @@ namespace StorageAnalizer.DataStructure
     class File
     {
         public DateTime LastModified;
-        public int Size;
+        public long Size;
         public string Name;
+
+        public File()
+        {
+            Name = string.Empty;
+            Size = 0;
+            LastModified = new DateTime();
+        }
+
+        public File(string fileName, long fileSize, DateTime modified)
+        {
+            Name = fileName;
+            Size = fileSize;
+            LastModified = modified;
+        }
     }
 }

@@ -9,14 +9,14 @@ namespace StorageAnalizer.DataStructure
 {
     class Folder : File
     {
-        List<Folder> Subfolders;
-        List<File> Files;
+        public List<Folder> Subfolders;
+        public List<File> Files;
 
-        public new int Size
+        public new long Size
         {
             get
             {
-                int fullSize = 0;
+                long fullSize = 0;
 
                 foreach (File item in Files)
                 {
@@ -35,23 +35,18 @@ namespace StorageAnalizer.DataStructure
         public XElement getXml()
         {
             XElement xml = new XElement("Directory");
-
-            XElement DirectoryName = new XElement("DirectoryName")
-            {
-                Value = this.Name
-            };
-
-            xml.Add(DirectoryName);
+            
+            xml.Add(new XElement("DirectoryName", this.Name));
 
             foreach (File item in Files)
             {
                 XElement file = new XElement("File");
 
-                XElement Name     = new XElement("FileName"       , item.Name);
-                XElement Modified = new XElement("LastModified"   , item.LastModified.ToString());
-                XElement fileSize = new XElement("Size"           , item.Size.ToString());
-
-                file.Add(Name, Modified, fileSize);
+                file.Add(
+                    new XElement("FileName", item.Name),
+                    new XElement("LastModified", item.LastModified.ToString()),
+                    new XElement("Size", item.Size.ToString())
+                    );
 
                 xml.Add(file);
             }
