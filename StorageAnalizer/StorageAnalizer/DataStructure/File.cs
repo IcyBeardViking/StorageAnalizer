@@ -10,5 +10,6 @@ namespace StorageAnalizer.DataStructure
     {
         public DateTime LastModified;
         public int Size;
+        public string Name;
     }
 }
