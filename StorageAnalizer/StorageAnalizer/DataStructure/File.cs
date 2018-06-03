@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,13 @@ namespace StorageAnalizer.DataStructure
             Name = fileName;
             Size = fileSize;
             LastModified = modified;
+        }
+
+        public File(string fileName)
+        {
+            FileInfo file = new FileInfo(fileName);
+
+            Name = file.Name;
         }
     }
 }

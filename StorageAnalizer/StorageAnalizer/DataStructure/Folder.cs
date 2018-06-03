@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,24 +12,34 @@ namespace StorageAnalizer.DataStructure
     {
         public List<Folder> Subfolders;
         public List<File> Files;
+        public long totalSize = 0;
+
+        public Folder(string FolderPath) : base(FolderPath)
+        {
+            Files = new List<File>();
+            Subfolders = new List<Folder>();
+        }
 
         public new long Size
         {
             get
             {
-                long fullSize = 0;
-
-                foreach (File item in Files)
+                if (totalSize == 0)
                 {
-                    fullSize += item.Size;
-                }
 
-                foreach (Folder item in Subfolders)
-                {
-                    fullSize += item.Size;
-                }
+                    foreach (File item in Files)
+                    {
+                        totalSize += item.Size;
+                    }
 
-                return fullSize;
+                    foreach (Folder item in Subfolders)
+                    {
+                        totalSize += item.Size;
+                    }
+
+                }  
+                
+                return totalSize;
             }
         }
 
@@ -36,7 +47,10 @@ namespace StorageAnalizer.DataStructure
         {
             XElement xml = new XElement("Directory");
             
-            xml.Add(new XElement("DirectoryName", this.Name));
+            xml.Add(
+                new XElement("DirectoryName", this.Name),
+                new XElement("DirectorySize", this.totalSize)
+                );
 
             foreach (File item in Files)
             {

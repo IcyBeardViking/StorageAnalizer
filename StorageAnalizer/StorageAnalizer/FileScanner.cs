@@ -8,35 +8,55 @@ using System.Threading.Tasks;
 
 namespace StorageAnalizer
 {
-    class FileScanner
+    static class FileScanner
     {
+        static Action<string> sendCurrentFolder;
 
-        public Folder scanFolders(string folderPath)
+        static FileScanner()
         {
-            Folder folderTree = new Folder();
+            sendCurrentFolder = null;
+        }
 
-            foreach (string item in Directory.GetFiles(folderPath))
+        static public Folder scanFolders(string folderPath)
+        {
+            //If not null calls event
+            sendCurrentFolder?.Invoke(folderPath);
+
+            Folder folderTree = new Folder(folderPath);
+            try
             {
-                FileInfo info = new FileInfo(item);
+                foreach (string item in Directory.GetFiles(folderPath))
+                {
+                    FileInfo info = new FileInfo(item);
 
-                DataStructure.File file = new DataStructure.File(
-                    info.Name,
-                    info.Length,
-                    info.LastWriteTime
-                    );
+                    DataStructure.File file = new DataStructure.File(
+                        info.Name,
+                        info.Length,
+                        info.LastWriteTime
+                        );
 
-                folderTree.Files.Add(file);
+                    folderTree.Files.Add(file);
+                }
+
+                foreach (string item in Directory.GetDirectories(folderPath))
+                {
+                    Folder folder = new Folder(item);
+
+                    folder = scanFolders(item);
+
+                    folderTree.Subfolders.Add(folder);
+
+                }
             }
-
-            foreach (string item in Directory.GetDirectories(folderPath))
-            {
-                Folder folder = new Folder();
-
-            }
-
-            
+            catch (UnauthorizedAccessException) { }
 
             return folderTree;
+        }
+
+        internal static Folder scanFolders(string path, Action<string> changeLabel)
+        {
+            sendCurrentFolder = changeLabel;
+            return scanFolders(path);
         }
     }
 }

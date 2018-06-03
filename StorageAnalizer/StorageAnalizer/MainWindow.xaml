@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:StorageAnalizer"
         mc:Ignorable="d"
         Title="Storage Analizer" 
-        Height="460" 
+        Height="140" 
         Width="800" 
         ResizeMode="CanMinimize">
 
@@ -17,8 +17,8 @@
             <ColumnDefinition Width="357*"/>
             <ColumnDefinition Width="201*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="scan" Content="Scan..." HorizontalAlignment="Left" Margin="10,389,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FF2D2D30" Background="#FF2D2D30" Height="20" Click="scan_Click"/>
-        
+        <Button x:Name="scanButton" Content="Scan..." HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FF2D2D30" Background="#FF2D2D30" Height="25" Click="scan_Click"/>
+
         <TextBox 
             x:Name="folderPathTextBox" 
             HorizontalAlignment="Left" 
@@ -26,13 +26,15 @@
             Margin="10,10,0,0" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
-            Width="572" 
+            Width="764" 
             IsReadOnly="False" 
-            Grid.ColumnSpan="2" 
+            Grid.ColumnSpan="3" 
             Text="{Binding pickedFolderPath, Mode=TwoWay}" TextChanged="folderPathTextBox_TextChanged" IsManipulationEnabled="True" IsInactiveSelectionHighlightEnabled="True"
             />
-        
-        <Button x:Name="browse" Content="Browse..." HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FF2D2D30" Height="20" Click="browse_Click" Background="#FF2D2D30"/>
+
+        <Button x:Name="browseButton" Content="Browse..." HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FF2D2D30" Height="20" Click="browse_Click" Background="#FF2D2D30" RenderTransformOrigin="0.493,1.4"/>
+        <ProgressBar x:Name ="progressBar" HorizontalAlignment="Left" Height="25" Margin="90,71,0,0" VerticalAlignment="Top" Width="684" Grid.ColumnSpan="3"/>
+        <Label x:Name="currentFolderLabel" Content="CurrentFolderLabel" HorizontalAlignment="Left" Margin="85,41,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="694" Height="25"/>
 
     </Grid>
 </Controls:MetroWindow>
