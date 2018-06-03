@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using MahApps.Metro.Controls;
+using System.ComponentModel;
 
 namespace StorageAnalizer
 {
@@ -28,6 +29,21 @@ namespace StorageAnalizer
             InitializeComponent();
         }
 
+        private string path = string.Empty;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public string pickedFolderPath {
+            get
+            {
+                return path;
+            }
+            set
+            {
+                path = value;
+                folderPathTextBox.Text = path;
+            }
+        }
 
         private void browse_Click(object sender, RoutedEventArgs e)
         {
@@ -44,15 +60,18 @@ namespace StorageAnalizer
 
             if (result is CommonFileDialogResult.Ok)
             {
-
-                folderPath.Text = dialog.FileName;
-
+                pickedFolderPath = dialog.FileName;
             }
         }
 
         private void scan_Click(object sender, RoutedEventArgs e)
         {
+            System.Windows.Forms.MessageBox.Show(pickedFolderPath);
+        }
 
+        private void folderPathTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            pickedFolderPath = folderPathTextBox.Text;
         }
     }
 }

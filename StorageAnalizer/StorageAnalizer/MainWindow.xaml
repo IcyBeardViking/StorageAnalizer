@@ -18,8 +18,21 @@
             <ColumnDefinition Width="201*"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="scan" Content="Scan..." HorizontalAlignment="Left" Margin="10,389,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FF2D2D30" Background="#FF2D2D30" Height="20" Click="scan_Click"/>
-        <TextBox x:Name="folderPath" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="572" IsReadOnly="True" Grid.ColumnSpan="2"/>
-        <Button x:Name="browse" Content="Browse..." HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FF2D2D30" Height="20" Click="browse_Click" Background="#FF2D2D30"/>
+        
+        <TextBox 
+            x:Name="folderPathTextBox" 
+            HorizontalAlignment="Left" 
+            Height="23" 
+            Margin="10,10,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="572" 
+            IsReadOnly="False" 
+            Grid.ColumnSpan="2" 
+            Text="{Binding pickedFolderPath, Mode=TwoWay}" TextChanged="folderPathTextBox_TextChanged" IsManipulationEnabled="True" IsInactiveSelectionHighlightEnabled="True"
+            />
+        
+        <Button x:Name="browse" Content="Browse..." HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FF2D2D30" Height="20" Click="browse_Click" Background="#FF2D2D30"/>
 
     </Grid>
 </Controls:MetroWindow>
