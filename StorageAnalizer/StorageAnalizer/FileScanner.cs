@@ -53,10 +53,15 @@ namespace StorageAnalizer
             return folderTree;
         }
 
-        internal static Folder scanFolders(string path, Action<string> changeLabel)
+        internal static Folder scanFolders(string path, Action<string> changeLabel, Action doneEvent)
         {
             sendCurrentFolder = changeLabel;
-            return scanFolders(path);
+
+            Folder folderTreeDone = scanFolders(path);
+
+            doneEvent();
+
+            return folderTreeDone;
         }
     }
 }

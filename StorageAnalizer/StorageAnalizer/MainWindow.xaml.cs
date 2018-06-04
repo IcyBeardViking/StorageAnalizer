@@ -25,6 +25,7 @@ namespace StorageAnalizer
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -34,7 +35,24 @@ namespace StorageAnalizer
 
         }
 
+        Folder lastScannedFolder;
+
+        Folder LastScannedFolder
+        {
+            set
+            {
+                lastScannedFolder = value;
+                scanningDone();
+            }
+
+            get
+            {
+                return lastScannedFolder;
+            }
+        }
+
         private string path = string.Empty;
+        private bool scanningInProgress = false;
 
         public string pickedFolderPath {
             get
@@ -68,23 +86,31 @@ namespace StorageAnalizer
             }
         }
 
-        private void scan_Click(object sender, RoutedEventArgs e)
+        private async void scan_ClickAsync(object sender, RoutedEventArgs e)
         {
-            string size = string.Empty;
-
-            Folder mainFolder = FileScanner.scanFolders(path, changeLabel);
-
-            size = (mainFolder.Size / 1024 / 1024 / 1024).ToString() + " GB";
-
-            System.Windows.Forms.MessageBox.Show(size);
-
-            mainFolder.saveToFile("testing.xml");
-
+            scanningInProgress = true;
+            scanButton.Content = "Scanning...";
+            LastScannedFolder = await Task.Run(() => FileScanner.scanFolders(path, changeLabel, scanningDone));
         }
 
         public void changeLabel(string text)
         {
-            currentFolderLabel.Content = text;
+            //Invoking the main thread of the UI
+            currentFolderLabel.Dispatcher.Invoke(new Action(() => { currentFolderLabel.Content = text; }));
+        }
+
+        public void scanningDone()
+        {
+            scanningInProgress = false;
+            scanButton.Dispatcher.Invoke(new Action(() => { scanButton.Content = "Scan"; }));
+            currentFolderLabel.Dispatcher.Invoke(new Action(() => { currentFolderLabel.Content = string.Empty; }));
+
+            lastScannedFolder?.saveToFile(getFilename());
+        }
+
+        private string getFilename()
+        {
+            return ((DateTime.Now.ToShortTimeString() + "_" + DateTime.Now.ToShortDateString()).Replace('/','_').Replace(':','_')) + ".XML";
         }
 
         private void folderPathTextBox_TextChanged(object sender, TextChangedEventArgs e)

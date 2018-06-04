@@ -9,7 +9,7 @@
         Title="Storage Analizer" 
         Height="140" 
         Width="800" 
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize" >
 
     <Grid Background="#FF2D2D30">
         <Grid.ColumnDefinitions>
@@ -17,7 +17,7 @@
             <ColumnDefinition Width="357*"/>
             <ColumnDefinition Width="201*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="scanButton" Content="Scan..." HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FF2D2D30" Background="#FF2D2D30" Height="25" Click="scan_Click"/>
+        <Button x:Name="scanButton" Content="Scan" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="75" Foreground="White" BorderBrush="#FF2D2D30" Background="#FF2D2D30" Height="25" Click="scan_ClickAsync"/>
 
         <TextBox 
             x:Name="folderPathTextBox" 

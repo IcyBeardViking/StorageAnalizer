@@ -46,10 +46,12 @@ namespace StorageAnalizer.DataStructure
         public XElement getXml()
         {
             XElement xml = new XElement("Directory");
-            
+
             xml.Add(
                 new XElement("DirectoryName", this.Name),
-                new XElement("DirectorySize", this.totalSize)
+                new XElement("DirectorySize", this.totalSize),
+                new XElement("DateSaved", DateTime.Now.ToShortDateString()),
+                new XElement("TimeSaved", DateTime.Now.ToShortTimeString())
                 );
 
             foreach (File item in Files)
